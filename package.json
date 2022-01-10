@@ -1,5 +1,11 @@
 {
   "name": "top-10-tasks",
+  "displayName": "Top 10 Tasks",
+  "author": {
+    "name": "Jakub Suchenenk",
+    "email": "jakub.suchenenk.25@gmail.com",
+    "url": "https://github.com/AnonymousX86"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,7 +25,6 @@
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",

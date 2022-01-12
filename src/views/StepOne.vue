@@ -45,11 +45,13 @@ h1 {
 }
 
 form {
+  $content-width: 70%;
+  $aside-width: 32px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  $content-width: 70%;
 
   button {
     width: $content-width;
@@ -57,18 +59,15 @@ form {
 
   label {
     display: flex;
-    width: calc($content-width + 32px);
-    margin-right: 32px;
+    width: calc($content-width + $aside-width);
+    margin-right: $aside-width;
 
     span {
-      flex-basis: 32px;
+      flex-basis: $aside-width;
     }
 
     input {
       width: 100%;
-      padding: 4px;
-      border: solid #cccccc 1px;
-      border-radius: 4px;
     }
   }
 }

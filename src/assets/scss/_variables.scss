@@ -1,1 +1,5 @@
 $main: rgb(102, 170, 38);
+$main-light: lighten($main, 10%);
+$main-lighter: lighten($main, 15%);
+$main-dark: darken($main, 10%);
+$main-darker: darken($main, 15%);

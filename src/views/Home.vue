@@ -4,8 +4,8 @@
       <h1>Top 10 Tasks</h1>
       <h3>Anti procrastination app.</h3>
       <p>
-        What <span class="green-text bold">10</span> you would like to do in
-        next <span class="green-text bold">12</span> months?
+        What <span class="green-text bold">10</span> things you would like to do
+        in next <span class="green-text bold">12</span> months?
       </p>
       <form>
         <label v-for="index of 10" :key="index">

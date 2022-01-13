@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { key } from "@/store";
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
@@ -35,6 +35,14 @@ export default defineComponent({
         formData.value.length === 10
       );
     });
+
+    const tasks = computed<string[]>(() => {
+      return store.state.tasks;
+    });
+
+    const fillFromStore = () => {
+      formData.value = tasks.value;
+    };
 
     const handleSubmit = () => {
       if (!isFormValid.value) return;
@@ -57,6 +65,10 @@ export default defineComponent({
         "Do something special 9",
       ];
     };
+
+    onMounted(() => {
+      fillFromStore();
+    });
 
     return { stage, formData, isFormValid, handleSubmit, dummyFill };
   },

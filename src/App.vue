@@ -1,5 +1,5 @@
 <template>
-  <TheNavbar />
+  <TheNavbar v-show="currentRoute.name !== 'Step 4'" />
   <TheContainer />
 </template>
 
@@ -7,11 +7,16 @@
 import { defineComponent } from "vue";
 import TheNavbar from "@/components/TheNavbar.vue";
 import TheContainer from "@/components/TheContainer.vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: { TheNavbar, TheContainer },
   setup() {
-    return {};
+    const router = useRouter();
+
+    const { currentRoute } = router;
+
+    return { currentRoute };
   },
 });
 </script>

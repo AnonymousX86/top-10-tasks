@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="currentRoute.name !== 'Step 4'" class="container">
     <div class="view-card">
       <h1>Top 10 Tasks</h1>
       <h2>Step {{ currentStep }}</h2>
@@ -13,6 +13,7 @@
       <router-view v-else @goNext="goNext" />
     </div>
   </div>
+  <router-view v-else />
 </template>
 
 <script lang="ts">
@@ -27,6 +28,8 @@ export default defineComponent({
     const router = useRouter();
     const store = useStore(key);
 
+    const { currentRoute } = router;
+
     const currentStep = computed<number>(() => {
       const { name } = router.currentRoute.value;
       return name === "Step 1" ? 1 : name === "Step 2" ? 2 : 3;
@@ -40,12 +43,18 @@ export default defineComponent({
       return store.getters.stepTwoDone;
     });
 
+    const stepThreeDone = computed<boolean>(() => {
+      return store.getters.stepThreeDone;
+    });
+
     const previousStepDone = computed<boolean>(() => {
       return currentStep.value === 1
         ? true
         : currentStep.value === 2
         ? stepOneDone.value === true
-        : stepOneDone.value === true && stepTwoDone.value === true;
+        : currentStep.value === 3
+        ? stepTwoDone.value === true
+        : stepThreeDone.value === true;
     });
 
     const goBack = () => {
@@ -56,7 +65,7 @@ export default defineComponent({
       router.push({ name: "Step " + (currentStep.value + 1) });
     };
 
-    return { currentStep, previousStepDone, goBack, goNext };
+    return { currentRoute, currentStep, previousStepDone, goBack, goNext };
   },
 });
 </script>

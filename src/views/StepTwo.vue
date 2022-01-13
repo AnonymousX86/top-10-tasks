@@ -8,6 +8,7 @@
       v-for="(task, index) in tasks"
       :key="index"
       class="task"
+      :class="{ chosen: index === chosenTaskIndex }"
       @click="chooseIndex(index)"
     >
       {{ task }}
@@ -34,7 +35,11 @@ export default defineComponent({
       emit("goNext");
     };
 
-    return { tasks, chooseIndex };
+    const chosenTaskIndex = computed<Index>(() => {
+      return store.state.chosenTaskIndex;
+    });
+
+    return { tasks, chooseIndex, chosenTaskIndex };
   },
   emits: ["goNext"],
 });
@@ -53,7 +58,8 @@ export default defineComponent({
     transition: background-color 0.2s ease;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &.chosen {
       background-color: #ccc;
     }
   }

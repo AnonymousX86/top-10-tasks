@@ -1,26 +1,28 @@
 <template>
-  <div class="view-card">
-    <h1>Top 10 Tasks</h1>
-    <h2>Step {{ currentStep }}</h2>
-    <div v-if="!previousStepDone" class="missing-step">
-      <p>
-        Please fill
-        <span class="green-text bold">step {{ currentStep - 1 }}</span> first.
-      </p>
-      <button type="button" @click="goBack">Go back</button>
+  <div class="container">
+    <div class="view-card">
+      <h1>Top 10 Tasks</h1>
+      <h2>Step {{ currentStep }}</h2>
+      <div v-if="!previousStepDone" class="missing-step">
+        <p>
+          Please fill
+          <span class="green-text bold">step {{ currentStep - 1 }}</span> first.
+        </p>
+        <button type="button" @click="goBack">Go back</button>
+      </div>
+      <router-view v-else @goNext="goNext" />
     </div>
-    <slot v-else />
   </div>
 </template>
 
 <script lang="ts">
-import { key } from "@/store";
 import { computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { key } from "@/store";
 
 export default defineComponent({
-  name: "ViewCard",
+  name: "TheContainer",
   setup() {
     const router = useRouter();
     const store = useStore(key);
@@ -50,29 +52,40 @@ export default defineComponent({
       router.push({ name: "Step " + (currentStep.value - 1) });
     };
 
-    return { currentStep, previousStepDone, goBack };
+    const goNext = () => {
+      router.push({ name: "Step " + (currentStep.value + 1) });
+    };
+
+    return { currentStep, previousStepDone, goBack, goNext };
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.view-card {
-  background-color: white;
-  padding: 32px 16px;
-  border-radius: 16px;
-  width: 500px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
-  h1,
-  h2,
-  p {
-    margin: 4px 0;
-  }
+  .view-card {
+    background-color: white;
+    padding: 32px 16px;
+    border-radius: 16px;
+    width: 500px;
 
-  .missing-step {
-    margin-top: 16px;
+    h1,
+    h2,
+    p {
+      margin: 4px 0;
+    }
 
-    button {
-      margin-top: inherit;
+    .missing-step {
+      margin-top: 16px;
+
+      button {
+        margin-top: inherit;
+      }
     }
   }
 }

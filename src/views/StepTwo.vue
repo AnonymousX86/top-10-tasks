@@ -30,7 +30,7 @@ export default defineComponent({
     });
 
     const chooseIndex = (index: Index) => {
-      store.commit("setTopTaskIndex", index);
+      store.commit("setChosenTaskIndex", index);
       emit("goNext");
     };
 

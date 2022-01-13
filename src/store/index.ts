@@ -5,7 +5,7 @@ export type Index = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | null;
 
 export interface State {
   tasks: string[];
-  topTaskIndex: Index;
+  chosenTaskIndex: Index;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -13,7 +13,7 @@ export const key: InjectionKey<Store<State>> = Symbol();
 export default createStore<State>({
   state: {
     tasks: [],
-    topTaskIndex: null,
+    chosenTaskIndex: null,
   },
   mutations: {
     setTasks(state, tasks: string[]) {
@@ -22,11 +22,11 @@ export default createStore<State>({
     clearTasks(state) {
       state.tasks = [];
     },
-    setTopTaskIndex(state, index: Index) {
-      state.topTaskIndex = index;
+    setChosenTaskIndex(state, index: Index) {
+      state.chosenTaskIndex = index;
     },
-    clearTopTaskIndex(state) {
-      state.topTaskIndex = null;
+    clearChosenTaskIndex(state) {
+      state.chosenTaskIndex = null;
     },
   },
   actions: {},
@@ -36,12 +36,12 @@ export default createStore<State>({
       return state.tasks.length === 10;
     },
     stepTwoDone(state): boolean {
-      return state.topTaskIndex !== null;
+      return state.chosenTaskIndex !== null;
     },
-    topTask(state): string | null {
-      return state.topTaskIndex === null
+    chosenTask(state): string | null {
+      return state.chosenTaskIndex === null
         ? null
-        : state.tasks[state.topTaskIndex];
+        : state.tasks[state.chosenTaskIndex];
     },
   },
 });

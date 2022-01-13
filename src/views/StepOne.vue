@@ -10,6 +10,9 @@
     </label>
     <button v-if="isFormValid" type="submit">Go next</button>
     <button v-else type="button" disabled>Fill all fields</button>
+    <button v-if="stage === 'dev'" type="button" @click="dummyFill">
+      Dummy fill
+    </button>
   </form>
 </template>
 
@@ -23,6 +26,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const store = useStore(key);
 
+    const stage = ref(process.env.NODE_ENV === "development" ? "dev" : "prod");
     const formData = ref<string[]>([]);
 
     const isFormValid = computed<boolean>(() => {
@@ -38,7 +42,23 @@ export default defineComponent({
       emit("goNext");
     };
 
-    return { formData, isFormValid, handleSubmit };
+    const dummyFill = () => {
+      if (stage.value === "prod") return;
+      formData.value = [
+        "Do something 0",
+        "Do something else 1",
+        "Do something else 2",
+        "Do something else 3",
+        "Do something else 4",
+        "Do something else 5",
+        "Do something else 6",
+        "Do something else 7",
+        "Do something else 8",
+        "Do something special 9",
+      ];
+    };
+
+    return { stage, formData, isFormValid, handleSubmit, dummyFill };
   },
   emits: ["goNext"],
 });
